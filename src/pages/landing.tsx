@@ -1,5 +1,22 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
+import { useScrollAnimation } from '../hooks/useScrollAnimation'
+
+const AnimatedSection: React.FC<{ children: React.ReactNode; className?: string; id?: string }> = ({ children, className = '', id }) => {
+  const { elementRef, isVisible } = useScrollAnimation()
+  
+  return (
+    <section
+      ref={elementRef as React.RefObject<HTMLElement>}
+      id={id}
+      className={`transition-all duration-700 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      } ${className}`}
+    >
+      {children}
+    </section>
+  )
+}
 
 const LandingPage: React.FC = () => {
   return (
@@ -8,7 +25,7 @@ const LandingPage: React.FC = () => {
       <Navbar />
 
       {/* Hero Section - More casual, less structured */}
-      <section className="relative pt-20 pb-16 px-4">
+      <AnimatedSection className="relative pt-20 pb-16 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="flex flex-col md:flex-row items-start gap-12">
             {/* Profile Image */}
@@ -56,13 +73,13 @@ const LandingPage: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Spacer */}
       <div className="h-20"></div>
 
       {/* What I'm working with - Less grid, more organic */}
-      <section className="py-16 px-4 bg-gray-50 dark:bg-gray-900/50">
+      <AnimatedSection className="py-16 px-4 bg-gray-50 dark:bg-gray-900/50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
             What I work with
@@ -89,13 +106,13 @@ const LandingPage: React.FC = () => {
             </span>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Spacer */}
       <div className="h-20"></div>
 
       {/* About - Simple and direct */}
-      <section id="about" className="py-16 px-4">
+      <AnimatedSection id="about" className="py-16 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="space-y-6">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
@@ -120,13 +137,13 @@ const LandingPage: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Spacer */}
       <div className="h-20"></div>
 
       {/* Projects teaser - Minimal */}
-      <section id="features" className="py-16 px-4 bg-gray-50 dark:bg-gray-900/50">
+      <AnimatedSection id="features" className="py-16 px-4 bg-gray-50 dark:bg-gray-900/50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
             Things I've built
@@ -159,13 +176,13 @@ const LandingPage: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Spacer */}
       <div className="h-20"></div>
 
       {/* Contact - Keep it simple */}
-      <section id="contact" className="py-16 px-4">
+      <AnimatedSection id="contact" className="py-16 px-4">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
             Get in touch
@@ -183,7 +200,7 @@ const LandingPage: React.FC = () => {
             brendanmaska@gmail.com →
           </a>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Footer - Minimal */}
       <footer className="mt-32 py-12 px-4 border-t border-gray-200 dark:border-gray-800">
